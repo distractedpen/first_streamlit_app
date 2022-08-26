@@ -23,5 +23,12 @@ fruits_selected = st.multiselect("Pick some fruits: ", list(my_fruit_list.index)
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 st.dataframe(fruits_to_show)
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response)
+st.header('Fruityvice Fruit Advice!')
+fruit_choice = st.text_input('What fruit would you like information about?', "Kiwi")
+st.write('The user entered', fruit_choice)
+# get the data from fruityvice
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+# convert from json to pd dataframe
+fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+# display pd dataframe
+st.dataframe(fruitvice_normalized)
