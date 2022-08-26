@@ -11,6 +11,11 @@ def get_fruityvice_data(fruit_choice):
     fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
     return fruityvice_normalized
 
+def get_fruit_load_list():
+    with conn.cursor() as cur:
+        cur.execute("select * from fruit_load_list")
+        return cur.fetchall()
+
 st.title('My Parents New Healthy Diner')
 
 st.header('Breakfast Favorites')   
@@ -45,13 +50,12 @@ except URLError as e:
   
 st.stop()
   
-  
-conn = snowflake.connector.connect(**st.secrets["snowflake"])
-cur = conn.cursor()
-cur.execute("select * from fruit_load_list")
-data_rows = cur.fetchall()
-st.text("The fruit load list contains:")
-st.dataframe(data_rows)
+st.header("The fruit load list contains")
+
+if st.button("Get Fruit Load List"):
+    conn = snowflake.connector.connect(**st.secrets["snowflake"])
+    data = get_fruit_load_list()
+    st.dataframe(data)
 
 new_fruit = st.text_input("What fruit would you like to add?")
 st.text("Thanks for adding " + new_fruit)
