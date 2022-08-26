@@ -16,6 +16,11 @@ def get_fruit_load_list():
         cur.execute("select * from fruit_load_list")
         return cur.fetchall()
 
+def inster_row_snowflake(new_fruit):
+    with conn.cursor() as cur:
+        cur.execute("insert into fruit_load_list values (%s)", (new_fruit,)")
+        return "Thanks for adding " + new_fruit
+    
 st.title('My Parents New Healthy Diner')
 
 st.header('Breakfast Favorites')   
@@ -54,7 +59,8 @@ if st.button("Get Fruit Load List"):
     data = get_fruit_load_list()
     st.dataframe(data)
 
+    
 new_fruit = st.text_input("What fruit would you like to add?")
-st.text("Thanks for adding " + new_fruit)
-if new_fruit:
-  cur.execute("insert into fruit_load_list values ?", new_fruit)
+if streamlit.button('Add a Fruit to the List'):
+    conn = snowflake.coonector.connect(**st.secrets["snowflake"])
+    st.text(insert_row_snowflake(new_fruit))
