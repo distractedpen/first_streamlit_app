@@ -31,4 +31,4 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_c
 # convert from json to pd dataframe
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # display pd dataframe
-st.dataframe(fruitvice_normalized)
+st.dataframe(fruityvice_normalized)
