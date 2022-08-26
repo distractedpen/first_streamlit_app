@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import requests
 import snowflake.connector
-import urllib.error import URLError
+from urllib.error import URLError
 
 
 st.title('My Parents New Healthy Diner')
@@ -37,7 +37,11 @@ try:
     st.dataframe(fruityvice_normalized)
 except URLError as e:
   st.error()
-
+  
+  
+st.stop()
+  
+  
 conn = snowflake.connector.connect(**st.secrets["snowflake"])
 cur = conn.cursor()
 cur.execute("select * from fruit_load_list")
