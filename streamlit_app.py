@@ -61,6 +61,6 @@ if st.button("Get Fruit Load List"):
 
     
 new_fruit = st.text_input("What fruit would you like to add?")
-if streamlit.button('Add a Fruit to the List'):
+if st.button('Add a Fruit to the List'):
     conn = snowflake.coonector.connect(**st.secrets["snowflake"])
     st.text(insert_row_snowflake(new_fruit))
