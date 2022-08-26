@@ -18,7 +18,7 @@ def get_fruit_load_list():
 
 def inster_row_snowflake(new_fruit):
     with conn.cursor() as cur:
-        cur.execute("insert into fruit_load_list values (%s)", (new_fruit,)")
+        cur.execute("insert into fruit_load_list values (%s)", (new_fruit,))
         return "Thanks for adding " + new_fruit
     
 st.title('My Parents New Healthy Diner')
