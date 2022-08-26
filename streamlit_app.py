@@ -52,15 +52,17 @@ try:
 except URLError as e:
   st.error()
   
-st.header("The fruit load list contains")
+st.header("View our Fruit List - Add Your Favorities!")
 
-if st.button("Get Fruit Load List"):
+if st.button("Get Fruit List"):
     conn = snowflake.connector.connect(**st.secrets["snowflake"])
     data = get_fruit_load_list()
+    conn.close()
     st.dataframe(data)
 
     
 new_fruit = st.text_input("What fruit would you like to add?")
 if st.button('Add a Fruit to the List'):
     conn = snowflake.connector.connect(**st.secrets["snowflake"])
+    conn.close()
     st.text(insert_row_snowflake(new_fruit))
