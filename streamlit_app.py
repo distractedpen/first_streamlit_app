@@ -41,3 +41,6 @@ cur.execute("select * from fruit_load_list")
 data_rows = cur.fetchall()
 st.text("The fruit load list contains:")
 st.dataframe(data_rows)
+
+new_fruit = st.text_input("What fruit would you like to add?")
+st.text("Thanks for adding " + new_fruit)
